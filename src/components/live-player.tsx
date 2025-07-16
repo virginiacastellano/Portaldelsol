@@ -3,14 +3,22 @@
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
-import { Play, Pause, Volume2, VolumeX, Facebook, Instagram, Youtube, RotateCcw } from "lucide-react"
+import {
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Facebook,
+  Instagram,
+  Youtube,
+  RotateCcw,
+} from "lucide-react"
 
 interface LivePlayerProps {
   streamUrl: string
   stationName: string
 }
 
-// Enlaces de redes sociales reales
 const socialLinks = {
   facebook: "https://www.facebook.com/share/18R8LKH2AH/?mibextid=wwXIfr",
   instagram: "https://www.instagram.com/radioportaldelsol?igsh=MTFuNmh0MzIxYmw4ag==",
@@ -118,9 +126,14 @@ export default function LivePlayer({ streamUrl, stationName }: LivePlayerProps) 
     <div className="w-full max-w-md mx-auto space-y-6">
       <audio ref={audioRef} src={streamUrl} preload="none" crossOrigin="anonymous" />
 
-      {/* Reproductor principal */}
       <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
-        {/* Botón de reproducción principal */}
+        {/* ✅ Agregado: nombre de la estación */}
+        <div className="text-center mb-4">
+          <div className="text-[#acd600] text-sm uppercase tracking-widest font-semibold mb-1">
+            {stationName}
+          </div>
+        </div>
+
         <div className="text-center mb-6">
           <Button
             onClick={togglePlay}
@@ -137,7 +150,6 @@ export default function LivePlayer({ streamUrl, stationName }: LivePlayerProps) 
           </Button>
         </div>
 
-        {/* Información de reproducción */}
         <div className="text-center mb-6">
           <div className="text-[#fffffe] text-lg font-medium mb-2">
             {isLoading ? "Conectando..." : isPlaying ? "Reproduciendo" : "Listo para reproducir"}
@@ -145,7 +157,6 @@ export default function LivePlayer({ streamUrl, stationName }: LivePlayerProps) 
           <div className="text-[#acd600] text-sm">{isPlaying ? currentTime : "0:00"}</div>
         </div>
 
-        {/* Barra de progreso visual */}
         <div className="mb-6">
           <div className="w-full bg-white/20 rounded-full h-2">
             <div
@@ -155,7 +166,6 @@ export default function LivePlayer({ streamUrl, stationName }: LivePlayerProps) 
           </div>
         </div>
 
-        {/* Controles de volumen */}
         <div className="flex items-center space-x-4 mb-6">
           <Button
             onClick={toggleMute}
@@ -171,7 +181,6 @@ export default function LivePlayer({ streamUrl, stationName }: LivePlayerProps) 
           <span className="text-[#fffffe] text-sm w-8">{volume[0]}%</span>
         </div>
 
-        {/* Error y reconexión */}
         {error && (
           <div className="text-center mb-4">
             <p className="text-red-400 text-sm mb-2">{error}</p>
@@ -183,7 +192,6 @@ export default function LivePlayer({ streamUrl, stationName }: LivePlayerProps) 
         )}
       </div>
 
-      {/* Redes sociales */}
       <div className="flex justify-center space-x-4">
         <Button
           onClick={() => handleSocialClick(socialLinks.facebook)}
@@ -214,7 +222,6 @@ export default function LivePlayer({ streamUrl, stationName }: LivePlayerProps) 
         </Button>
       </div>
 
-      {/* Indicador de estado */}
       {isPlaying && (
         <div className="flex items-center justify-center space-x-2 animate-pulse">
           <div className="w-3 h-3 bg-red-500 rounded-full"></div>
